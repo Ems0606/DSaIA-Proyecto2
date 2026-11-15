@@ -120,6 +120,12 @@ def reservar(usuario, cancha, texto_fecha, texto_hora, ahora):
         raise
 
 
-def reservas_de_usuario(usuario):
-    """Historial propio (BR03): pasadas y futuras, confirmadas y canceladas. Más reciente primero; en empate, ID mayor primero."""
-    return list(Reserva.objects.filter(usuario=usuario).select_related("cancha").order_by("-inicio", "-pk"))
+def reservas_de_usuario(usuario, ahora):
+    """Historial propio (BR03): pasadas y futuras, confirmadas y canceladas. Más reciente primero; en empate, ID mayor primero.
+
+    Cada reserva lleva `cancelable` (BR14): confirmada y con al menos 2 horas de plazo (BR08).
+    """
+    reservas = list(Reserva.objects.filter(usuario=usuario).select_related("cancha").order_by("-inicio", "-pk"))
+    for reserva in reservas:
+        reserva.cancelable = reserva.estado == Reserva.CONFIRMADA and dominio.puede_cancelar(reserva.inicio, ahora)
+    return reservas
