@@ -1,6 +1,6 @@
 # Requisitos
 
-Versión 1.0 (borrador). Cada requisito apunta a una historia de usuario (HU) y a sus criterios de aceptación en `acceptance-criteria.md`.
+Versión 1.0. Cada requisito apunta a una historia de usuario (HU) y a sus criterios de aceptación en `acceptance-criteria.md`.
 
 ## Funcionales
 | ID | HU | Requisito |
@@ -29,4 +29,4 @@ Versión 1.0 (borrador). Cada requisito apunta a una historia de usuario (HU) y 
 - **HU-04** Como jugador quiero cancelar mi reserva, para liberar la franja si no puedo ir.
 - **HU-05** Como jugador quiero ver mis reservas, para saber qué tengo agendado.
 
-Versión 1.0 revisada: fecha ______; aprobador(es) ______
+Versión 1.0 revisada: fecha 2026-11-15; aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C0)

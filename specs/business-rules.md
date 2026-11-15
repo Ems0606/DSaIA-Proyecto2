@@ -1,6 +1,6 @@
 # Reglas de negocio
 
-Versión 1.0 (borrador).
+Versión 1.0.
 
 Horario, duración de la franja, plazo máximo y plazo de cancelación confirmados por Emily el 2026-11-15 (D-011 en `docs/decisions.md`).
 
@@ -23,4 +23,4 @@ Horario, duración de la franja, plazo máximo y plazo de cancelación confirmad
 
 Las decisiones de zona horaria (el horario es hora local de Panamá, UTC-5, y el servidor guarda en UTC) se detallan en `architecture.md`.
 
-Versión 1.0 revisada: fecha ______; aprobador(es) ______
+Versión 1.0 revisada: fecha 2026-11-15; aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C0)

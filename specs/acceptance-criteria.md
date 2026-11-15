@@ -1,6 +1,6 @@
 # Criterios de aceptación
 
-Versión 1.0 (borrador).
+Versión 1.0.
 
 Convención para que sean verificables y repetibles:
 - La hora actual de las pruebas es fija: **2026-11-16 10:00** (hora de Panamá), salvo que el criterio diga otra.
@@ -37,4 +37,4 @@ Convención para que sean verificables y repetibles:
 | AC26 | R07, R08 | Entrar a "Mis reservas" sin sesión iniciada lleva al inicio de sesión y no muestra ninguna reserva. |
 | AC27 | R06, R09, BR14 | Cancelar se ofrece solo en las reservas confirmadas propias que todavía cumplen el plazo, tanto en "Mis reservas" como en la disponibilidad de la cancha. No aparece en reservas ajenas, ya canceladas o fuera de plazo. |
 
-Versión 1.0 revisada: fecha ______; aprobador(es) ______
+Versión 1.0 revisada: fecha 2026-11-15; aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C0)
