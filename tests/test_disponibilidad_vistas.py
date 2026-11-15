@@ -10,7 +10,7 @@ from unittest import mock
 from zoneinfo import ZoneInfo
 
 from django.core.management import call_command
-from django.test import TestCase
+from django.test import Client, TestCase
 
 from src.reservas.models import Cancha
 
@@ -70,12 +70,35 @@ class DisponibilidadVistaTests(TestCase):
         self.assertFalse(respuesta.context.get("franjas"))
         self.assertNotContains(respuesta, "07:00-08:00", status_code=400)
 
-    def test_ac03_sin_parametro_fecha_responde_error_sin_franjas(self):
-        respuesta = self.consultar({})
+    def test_ac03_fecha_vacia_responde_error_sin_franjas(self):
+        respuesta = self.consultar({"fecha": ""})
 
         self.assertEqual(respuesta.status_code, 400)
         self.assertContains(respuesta, "AAAA-MM-DD", status_code=400)
         self.assertFalse(respuesta.context.get("franjas"))
+
+    def test_ac28_sin_parametro_fecha_muestra_hoy_en_panama_con_200(self):
+        # 2026-11-17 02:30 UTC es 2026-11-16 21:30 en Panamá: el día es el 16.
+        respuesta = self.consultar({}, ahora=datetime(2026, 11, 17, 2, 30, tzinfo=timezone.utc))
+
+        self.assertEqual(respuesta.status_code, 200)
+        self.assertEqual(respuesta.context["fecha"], date(2026, 11, 16))
+        self.assertEqual(len(respuesta.context["franjas"]), 15)
+        self.assertContains(respuesta, 'value="2026-11-16"')
+
+    def test_ac28_head_responde_como_get(self):
+        with mock.patch("src.reservas.reloj.ahora", return_value=AHORA_PRUEBA):
+            respuesta = self.client.head(self.url)
+
+        self.assertEqual(respuesta.status_code, 200)
+
+    def test_ac28_post_responde_405_aunque_no_traiga_token_csrf(self):
+        # Cliente con CSRF activo: el middleware debe ejecutarse antes de la vista.
+        cliente = Client(enforce_csrf_checks=True)
+
+        respuesta = cliente.post(self.url)
+
+        self.assertEqual(respuesta.status_code, 405)
 
     def test_ac21_cancha_inexistente_responde_404_sin_franjas(self):
         with mock.patch("src.reservas.reloj.ahora", return_value=AHORA_PRUEBA):
