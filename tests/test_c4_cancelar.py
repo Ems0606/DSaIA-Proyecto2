@@ -10,6 +10,7 @@ from unittest import mock
 from zoneinfo import ZoneInfo
 
 from django.contrib.auth import get_user_model
+from django.db import OperationalError
 from django.test import Client, TestCase
 
 from src.reservas import models
@@ -196,6 +197,17 @@ class CancelarAC18Tests(CancelarBase):
         self.assertEqual(respuesta.status_code, 405)
         self.reserva.refresh_from_db()
         self.assertEqual(self.reserva.estado, "confirmada")
+
+
+class CancelarBloqueoSqliteTests(CancelarBase):
+    def test_503_si_sqlite_agota_la_espera_al_cancelar_y_no_cambia_nada(self):
+        antes = self.estado_de_reservas()
+
+        with mock.patch("src.reservas.servicios.cancelar", side_effect=OperationalError("database is locked"), create=True):
+            respuesta = self.cancelar()
+
+        self.assertEqual(respuesta.status_code, 503)
+        self.assertEqual(self.estado_de_reservas(), antes)
 
 
 class CancelarCsrfTests(CancelarBase):
