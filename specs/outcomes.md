@@ -1,6 +1,6 @@
 # Outcomes (ODD)
 
-Versión 1.0 (borrador).
+Versión 1.0.
 
 ## Problema
 Hoy las canchas se reservan por WhatsApp o por llamadas al encargado. Eso produce cruces de horario (dos grupos creen que tienen la misma cancha), obliga a preguntar qué horas están libres y deja al encargado como cuello de botella.

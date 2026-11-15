@@ -63,7 +63,7 @@ Confirmados por Emily el 2026-11-15 (D-011):
 3. Cancelación con al menos 2 horas de anticipación.
 
 Decididos tras la revisión de Ivan (D-012 a D-016):
-- Se cancela desde "Mis reservas" y desde la disponibilidad de la cancha, solo en reservas propias confirmadas.
+- Se cancela desde "Mis reservas" y desde la disponibilidad de la cancha, solo en reservas propias confirmadas. Como "Mis reservas" es de C5, se entrega en dos pasos: en C4 desde la disponibilidad y en C5 desde "Mis reservas" (D-017).
 - La disponibilidad de una fecha pasada o fuera de plazo se muestra, pero con las franjas como no reservables.
 - Cancha inexistente o inactiva en la disponibilidad responde 404, el correo no distingue mayúsculas ni espacios en los extremos y "Mis reservas" muestra primero la más reciente.
 - Cuentas: la opción más simple, el sistema de usuarios de Django tal cual, con el correo como nombre de usuario (D-015).
