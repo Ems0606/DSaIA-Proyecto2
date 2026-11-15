@@ -12,6 +12,7 @@ ZONA_PANAMA = ZoneInfo("America/Panama")
 HORA_APERTURA = 7
 HORA_CIERRE = 22  # la última franja es 21:00-22:00
 HORIZONTE_DIAS = 14
+PLAZO_CANCELACION = timedelta(hours=2)  # BR08 y D-011: al menos 2 horas antes del inicio
 FORMATO_FECHA = "AAAA-MM-DD"
 
 _PATRON_FECHA = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}")
@@ -32,6 +33,8 @@ class Franja:
     fin: datetime
     ocupada: bool
     reservable: bool
+    propia_id: int | None = None  # id de la reserva confirmada del usuario que consulta (AC27)
+    cancelable: bool = False  # propia y con plazo de cancelación (BR08 y BR14)
 
 
 def parsear_fecha(texto):
@@ -76,19 +79,37 @@ def inicio_de_reserva(fecha, texto_hora, ahora):
     return inicio
 
 
-def calcular_disponibilidad(fecha, ocupados, ahora):
+def puede_cancelar(inicio, ahora):
+    """BR08: la reserva se puede cancelar si faltan al menos 2 horas para su inicio (justo 2 horas, sí)."""
+    return inicio - ahora >= PLAZO_CANCELACION
+
+
+def calcular_disponibilidad(fecha, ocupados, ahora, propias=None):
     """Franjas de una hora de la fecha civil, marcadas como ocupadas y reservables.
 
     `ocupados` es un conjunto de inicios (datetimes con zona) de reservas confirmadas.
+    `propias` es un mapa inicio -> id de las reservas confirmadas del usuario que consulta.
     `ahora` es un datetime con zona; la fecha de referencia se toma en Panamá.
     Una franja es reservable si está libre, empieza después de `ahora` (BR06) y su
     fecha no pasa de hoy en Panamá más 14 días calendario, inclusive (BR07).
     """
+    propias = propias or {}
     franjas = []
     for hora in range(HORA_APERTURA, HORA_CIERRE):
         inicio = _inicio_local(fecha, hora)
         fin = _inicio_local(fecha, hora + 1)
         ocupada = inicio in ocupados
         reservable = not ocupada and _es_reservable(inicio, fecha, ahora)
-        franjas.append(Franja(inicio=inicio, fin=fin, ocupada=ocupada, reservable=reservable))
+        propia_id = propias.get(inicio)
+        cancelable = propia_id is not None and puede_cancelar(inicio, ahora)
+        franjas.append(
+            Franja(
+                inicio=inicio,
+                fin=fin,
+                ocupada=ocupada,
+                reservable=reservable,
+                propia_id=propia_id,
+                cancelable=cancelable,
+            )
+        )
     return franjas

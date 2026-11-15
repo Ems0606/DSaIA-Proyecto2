@@ -15,14 +15,31 @@ class FranjaOcupada(Exception):
     """Ya hay una reserva confirmada en esa cancha e inicio (BR05, 409 `franja_ocupada`)."""
 
 
+class ReservaNoEncontrada(Exception):
+    """La reserva no existe o es de otra persona (404, sin revelar datos ajenos)."""
+
+
+class CancelacionInvalida(Exception):
+    """La reserva propia ya está cancelada o no cumple el plazo (409, BR08)."""
+
+    def __init__(self, reserva, mensaje):
+        super().__init__(mensaje)
+        self.reserva = reserva
+        self.mensaje = mensaje
+
+
+def _rango_del_dia(fecha):
+    desde = datetime.combine(fecha, time.min, tzinfo=dominio.ZONA_PANAMA)
+    return desde, desde + timedelta(days=1)
+
+
 class LimiteSemanal(Exception):
     """El usuario ya tiene dos confirmadas en la semana de Panamá (BR15, 409)."""
 
 
 def inicios_ocupados(cancha, fecha):
     """Puerto de ocupación: inicios de las reservas confirmadas de la cancha en la fecha civil de Panamá."""
-    desde = datetime.combine(fecha, time.min, tzinfo=dominio.ZONA_PANAMA)
-    hasta = desde + timedelta(days=1)
+    desde, hasta = _rango_del_dia(fecha)
     return frozenset(
         Reserva.objects.filter(
             cancha=cancha, estado=Reserva.CONFIRMADA, inicio__gte=desde, inicio__lt=hasta
@@ -30,14 +47,54 @@ def inicios_ocupados(cancha, fecha):
     )
 
 
-def consultar_disponibilidad(cancha, texto_fecha, ahora):
+def reservas_propias_confirmadas(cancha, fecha, usuario):
+    """Mapa inicio -> id de las reservas confirmadas del usuario en esa cancha y fecha civil (AC27)."""
+    if usuario is None or not usuario.is_authenticated:
+        return {}
+    desde, hasta = _rango_del_dia(fecha)
+    return dict(
+        Reserva.objects.filter(
+            cancha=cancha, usuario=usuario, estado=Reserva.CONFIRMADA, inicio__gte=desde, inicio__lt=hasta
+        ).values_list("inicio", "pk")
+    )
+
+
+def consultar_disponibilidad(cancha, texto_fecha, ahora, usuario=None):
     """Devuelve (fecha, franjas) para una cancha y una fecha escrita por el usuario.
 
     Lanza `dominio.FechaInvalida` si la fecha no tiene el formato o no existe.
+    Con `usuario`, marca la reserva confirmada propia de cada franja y si todavía se puede cancelar.
     """
     fecha = dominio.parsear_fecha(texto_fecha)
     ocupados = inicios_ocupados(cancha, fecha)
-    return fecha, dominio.calcular_disponibilidad(fecha, ocupados, ahora)
+    propias = reservas_propias_confirmadas(cancha, fecha, usuario)
+    return fecha, dominio.calcular_disponibilidad(fecha, ocupados, ahora, propias)
+
+
+def cancelar(usuario, reserva_id, ahora):
+    """Cancela una reserva confirmada del propio usuario con al menos 2 horas de antelación (BR08).
+
+    Lanza `ReservaNoEncontrada` (404) si no existe o es ajena, y `CancelacionInvalida` (409)
+    si ya estaba cancelada o no cumple el plazo. Ante un rechazo no escribe nada (BR12).
+    La transacción es corta; en SQLite es `IMMEDIATE`, así que una cancelación concurrente
+    espera y luego ve el estado nuevo. El historial se conserva (BR04).
+    """
+    with transaction.atomic():
+        reserva = Reserva.objects.select_related("cancha").filter(pk=reserva_id, usuario=usuario).first()
+        if reserva is None:
+            raise ReservaNoEncontrada()
+        if reserva.estado != Reserva.CONFIRMADA:
+            raise CancelacionInvalida(reserva, "Esa reserva ya está cancelada.")
+        if not dominio.puede_cancelar(reserva.inicio, ahora):
+            raise CancelacionInvalida(reserva, "Solo se puede cancelar con al menos 2 horas de anticipación.")
+        cambiadas = Reserva.objects.filter(pk=reserva.pk, estado=Reserva.CONFIRMADA).update(
+            estado=Reserva.CANCELADA, cancelada_en=ahora
+        )
+        if cambiadas != 1:
+            raise CancelacionInvalida(reserva, "Esa reserva ya está cancelada.")
+    reserva.estado = Reserva.CANCELADA
+    reserva.cancelada_en = ahora
+    return reserva
 
 
 def _hay_confirmada(cancha, inicio):
@@ -82,3 +139,8 @@ def reservar(usuario, cancha, texto_fecha, texto_hora, ahora):
         if _hay_confirmada(cancha, inicio):
             raise FranjaOcupada() from None
         raise
+
+
+def reservas_de_usuario(usuario):
+    """Historial propio (BR03): pasadas y futuras, confirmadas y canceladas. Más reciente primero; en empate, ID mayor primero."""
+    return list(Reserva.objects.filter(usuario=usuario).select_related("cancha").order_by("-inicio", "-pk"))

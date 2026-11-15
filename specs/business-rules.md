@@ -26,4 +26,4 @@ Las decisiones de zona horaria (el horario es hora local de Panamá, UTC-5, y el
 
 Versión 1.0 revisada: fecha 2026-11-15; aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C0)
 
-Versión 1.1: propuesta del 2026-11-15 (cambio de C3, D-019 a D-022), pendiente de la aprobación de Ivan (Dev, reviewer de C3).
+Versión 1.1: fecha 2026-11-15 (cambio de C3, D-019 a D-022); aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C3).
