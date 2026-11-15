@@ -15,7 +15,7 @@ from django.db import connections
 from django.test import Client, TestCase, TransactionTestCase
 
 from src.reservas import models
-from src.reservas.models import Cancha
+from src.reservas.models import Cancha, Reserva
 
 PANAMA = ZoneInfo("America/Panama")
 AHORA = datetime(2026, 11, 16, 10, 0, tzinfo=PANAMA)
@@ -117,3 +117,45 @@ class CancelarCanchaDesactivadaTests(TestCase):
             siguiente = self.client.get(respuesta["Location"])
         self.assertEqual(siguiente.status_code, 200)
         self.assertContains(siguiente, "Reserva cancelada")
+
+
+class CancelarCupoSemanalTests(TestCase):
+    """AC32 de extremo a extremo, con el mismo usuario y la misma semana."""
+
+    @mock.patch("src.reservas.reloj.ahora", return_value=AHORA)
+    def test_r13_ac32_cancelar_por_endpoint_libera_un_cupo(self, _reloj):
+        cancha = Cancha.objects.create(nombre="Cancha 1", deporte="Fútbol 5", activa=True)
+        ana = Usuario.objects.create_user("ana@ejemplo.com")
+        self.client.force_login(ana)
+        url = f"/canchas/{cancha.pk}/reservas/"
+
+        for fecha in ("2026-11-17", "2026-11-18"):
+            alta = self.client.post(url, {"fecha": fecha, "hora": "18:00"})
+            self.assertEqual(alta.status_code, 303)
+
+        propias = Reserva.objects.filter(usuario=ana)
+        confirmadas = propias.filter(estado=Reserva.CONFIRMADA)
+        primera = confirmadas.get(inicio=INICIO)
+        destino = {"fecha": "2026-11-19", "hora": "18:00"}
+
+        rechazo = self.client.post(url, destino)
+
+        self.assertContains(rechazo, "limite_semanal", status_code=409)
+        self.assertEqual(propias.count(), 2)
+        self.assertEqual(confirmadas.count(), 2)
+
+        cancelacion = self.client.post(f"/reservas/{primera.pk}/cancelar/")
+
+        self.assertEqual(cancelacion.status_code, 303)
+        primera.refresh_from_db()
+        self.assertEqual(primera.estado, Reserva.CANCELADA)
+        self.assertEqual(primera.cancelada_en, AHORA)
+        self.assertEqual(confirmadas.count(), 1)
+
+        reintento = self.client.post(url, destino)
+
+        self.assertEqual(reintento.status_code, 303)
+        self.assertEqual(confirmadas.count(), 2)
+        self.assertTrue(confirmadas.filter(inicio=datetime(2026, 11, 19, 18, tzinfo=PANAMA)).exists())
+        self.assertEqual(propias.count(), 3)
+        self.assertEqual(propias.filter(estado=Reserva.CANCELADA).count(), 1)
