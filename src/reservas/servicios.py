@@ -36,6 +36,10 @@ def consultar_disponibilidad(cancha, texto_fecha, ahora):
     return fecha, dominio.calcular_disponibilidad(fecha, ocupados, ahora)
 
 
+def _hay_confirmada(cancha, inicio):
+    return Reserva.objects.filter(cancha=cancha, inicio=inicio, estado=Reserva.CONFIRMADA).exists()
+
+
 def reservar(usuario, cancha, texto_fecha, texto_hora, ahora):
     """Crea una reserva confirmada. Valida primero y escribe después, en una transacción corta.
 
@@ -48,8 +52,12 @@ def reservar(usuario, cancha, texto_fecha, texto_hora, ahora):
         raise CanchaInactiva()
     try:
         with transaction.atomic():
-            if Reserva.objects.filter(cancha=cancha, inicio=inicio, estado=Reserva.CONFIRMADA).exists():
+            if _hay_confirmada(cancha, inicio):
                 raise FranjaOcupada()
             return Reserva.objects.create(cancha=cancha, usuario=usuario, inicio=inicio)
     except IntegrityError:
-        raise FranjaOcupada() from None
+        # Solo la colisión de la franja (índice reserva_confirmada_unica) es FranjaOcupada.
+        # Se comprueba con la franja ya liberada: cualquier otro error de integridad se propaga.
+        if _hay_confirmada(cancha, inicio):
+            raise FranjaOcupada() from None
+        raise
