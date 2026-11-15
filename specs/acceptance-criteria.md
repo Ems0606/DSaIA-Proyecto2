@@ -49,4 +49,4 @@ Versión 1.0 revisada: fecha 2026-11-15; aprobador(es) Emily (Product) e Ivan (D
 
 Cambios hechos el mismo 2026-11-15, después de esa aprobación y revisados por Rey: AC27 quedó repartido entre C4 y C5 (D-017) y se agregó AC28 para la consulta sin fecha (D-018).
 
-Versión 1.1: propuesta del 2026-11-15 (cambio de C3, D-019 a D-022), pendiente de la aprobación de Ivan (Dev, reviewer de C3). Tras su primera revisión se ajustaron AC29 (una reserva ya iniciada cuenta para el cupo) y AC32 (en C3 con una reserva ya cancelada; el flujo con el endpoint, en C4).
+Versión 1.1: fecha 2026-11-15 (cambio de C3, D-019 a D-022); aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C3). Tras la primera revisión de Ivan se ajustaron AC29 (una reserva ya iniciada cuenta para el cupo) y AC32 (en C3 con una reserva ya cancelada; el flujo con el endpoint, en C4).
