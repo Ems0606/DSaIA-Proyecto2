@@ -9,6 +9,20 @@ Usé Chrome 143.0.7499.170 y un checkout con una base SQLite nueva. Fijé el rel
 | AC15, alcance, orden y hora | Ana vio solo sus cuatro reservas. Las dos del 20/11 a las 21:00 se ordenaron por ID descendente (primero Cancha QA 2). Después se mostró la cancelada del 19/11 y al final la confirmada del 15/11. Las 21:00 se mostraron en hora de Panamá, aunque ese instante corresponde al día siguiente a las 02:00 en UTC. | [Vista de Ana](qa-ac15-ana.png) |
 | AC15, privacidad y estado | Luis vio únicamente sus dos confirmadas, del 20/11 a las 18:00 y del 18/11 a las 19:00, en ese orden. Las consultas conservaron las filas de SQLite. | [Vista de Luis](qa-ac15-luis.png) |
 | AC26 | El GET anónimo a `/mis-reservas/` devolvió 302 al inicio de sesión con `next=/mis-reservas/`. La pantalla de acceso no mostró reservas. El POST de acceso devolvió 303 y Ana volvió a «Mis reservas». Antes de reservar, vio el mensaje de historial vacío. | [Acceso solicitado](qa-ac26-sin-sesion.png) |
-| AC19, «Mis reservas» | En un contexto de Chrome limitado a `127.0.0.1`, la navegación externa de control falló con `ERR_INTERNET_DISCONNECTED`. La página del historial y su CSS local devolvieron 200, se mostraron las cuatro filas de Ana y la app no solicitó recursos externos. | [Historial sin acceso a Internet](qa-ac19-mis-reservas-local.png) |
+| AC19, «Mis reservas» | En un contexto de Chrome limitado a `127.0.0.1`, la navegación externa de control falló con `ERR_INTERNET_DISCONNECTED`. En una segunda corrida con Luis, el acceso regresó al historial, donde se mostraron sus dos filas. La página y el CSS local devolvieron 200. | [Historial sin acceso a Internet](qa-ac19-mis-reservas-local.png) |
+
+Registro real de AC19 en la sesión aislada de Luis:
+
+```text
+Chrome 143.0.7499.170
+Control ["https://qa-control.invalid/","net::ERR_INTERNET_DISCONNECTED"]
+GET /mis-reservas/ 302
+GET /cuentas/entrar/ 200
+GET /static/reservas/estilo.css 200
+POST /cuentas/entrar/ 303
+GET /mis-reservas/ 200
+GET /static/reservas/estilo.css 200
+Historial de Luis: 2 confirmadas en hora de Panamá
+```
 
 La prueba del botón de cancelación de AC27 queda para la parte 2 de C5, después de integrar el endpoint de C4.
