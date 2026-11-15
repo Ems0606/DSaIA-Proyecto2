@@ -1,0 +1,19 @@
+{% extends "reservas/base.html" %}
+
+{% block titulo %}Iniciar sesión{% endblock %}
+
+{% block contenido %}
+<h1>Iniciar sesión</h1>
+{% if error %}<p class="aviso error" role="alert">{{ error }}</p>{% endif %}
+<form method="post" class="formulario">{% csrf_token %}
+    <input type="hidden" name="next" value="{{ siguiente }}">
+    <label for="correo">Correo</label>
+    <input id="correo" name="correo" type="email" value="{{ correo }}" required>
+
+    <label for="contrasena">Contraseña</label>
+    <input id="contrasena" name="contrasena" type="password" required>
+
+    <button type="submit">Entrar</button>
+</form>
+<p>¿No tienes cuenta? <a href="{% url 'registro' %}">Crear cuenta</a></p>
+{% endblock %}
