@@ -1,0 +1,16 @@
+# Python / Django
+__pycache__/
+*.pyc
+.venv/
+venv/
+db.sqlite3
+*.sqlite3
+staticfiles/
+# Cobertura y salidas locales
+.coverage
+htmlcov/
+.local/
+# Secretos y editor
+.env
+.vscode/
+.idea/
