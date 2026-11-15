@@ -20,7 +20,7 @@ Redirecciones tras POST válido: 303 a un GET. Una operación que falla no deja 
 | Falta iniciar sesión | 302 al login; después se vuelve solo a una página GET local segura. Una operación POST se vuelve a enviar explícitamente. |
 | CSRF ausente o inválido en una ruta que admite la operación de escritura | 403. Los primeros formularios POST se incorporan en C2. |
 | Cancha inexistente, cancha inactiva al consultar disponibilidad o reserva inexistente o ajena | 404 sin revelar datos de terceros. |
-| Cancha inactiva al reservar, franja ocupada o cancelación inválida por estado/plazo | 409, mensaje de negocio; para franja ocupada, `franja_ocupada` |
+| Cancha inactiva al reservar, franja ocupada o cancelación inválida por estado/plazo | 409, mensaje de negocio; para franja ocupada, `franja_ocupada`; para el límite de 2 reservas por semana, `limite_semanal` |
 | Método no admitido en la ruta | 405. Las rutas de consulta de C1 admiten GET y HEAD, y rechazan POST con 405. |
 | Bloqueo de SQLite que agotó la espera | 503 con indicación de reintento |
 
