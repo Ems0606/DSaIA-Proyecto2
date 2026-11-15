@@ -259,3 +259,38 @@ button {
 .cancelar {
     margin: 0;
 }
+
+.reservas {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.reserva {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--borde);
+    border-radius: 0.4rem;
+}
+
+.reserva.confirmada {
+    background: var(--libre);
+}
+
+.reserva.cancelada {
+    background: var(--no-reservable);
+    color: var(--texto-suave);
+}
+
+.reserva .cancha {
+    font-weight: 600;
+}
+
+.reserva .cuando {
+    font-variant-numeric: tabular-nums;
+}

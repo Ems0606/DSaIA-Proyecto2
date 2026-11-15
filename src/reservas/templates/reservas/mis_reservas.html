@@ -1,0 +1,21 @@
+{% extends "reservas/base.html" %}
+
+{% block titulo %}Mis reservas{% endblock %}
+
+{% block contenido %}
+<h1>Mis reservas</h1>
+{% if reservas %}
+<ul class="reservas">
+    {% for reserva in reservas %}
+    <li class="reserva {% if reserva.estado == 'cancelada' %}cancelada{% else %}confirmada{% endif %}">
+        <span class="cancha">{{ reserva.cancha.nombre }}</span>
+        <span class="cuando">{{ reserva.inicio|date:"DATE_FORMAT" }}, {{ reserva.inicio|time:"H:i" }}</span>
+        <span class="estado">{% if reserva.estado == 'cancelada' %}Cancelada{% else %}Confirmada{% endif %}</span>
+    </li>
+    {% endfor %}
+</ul>
+<p class="nota">Las horas son de Panamá. Aquí ves tus reservas pasadas y futuras, la más reciente primero.</p>
+{% else %}
+<p>Todavía no tienes reservas. <a href="{% url 'canchas' %}">Elige una cancha</a> para reservar.</p>
+{% endif %}
+{% endblock %}

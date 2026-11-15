@@ -118,3 +118,8 @@ def reservar(usuario, cancha, texto_fecha, texto_hora, ahora):
         if _hay_confirmada(cancha, inicio):
             raise FranjaOcupada() from None
         raise
+
+
+def reservas_de_usuario(usuario):
+    """Historial propio (BR03): pasadas y futuras, confirmadas y canceladas. Más reciente primero; en empate, ID mayor primero."""
+    return list(Reserva.objects.filter(usuario=usuario).select_related("cancha").order_by("-inicio", "-pk"))

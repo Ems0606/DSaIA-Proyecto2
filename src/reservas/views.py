@@ -2,6 +2,7 @@ from urllib.parse import urlencode
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import OperationalError
 from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
@@ -159,3 +160,10 @@ def cancelar(request, reserva_id):
         # La disponibilidad de una cancha inactiva responde 404; el aviso se ve en el catálogo.
         return _ver_otro(reverse("canchas"))
     return _ver_otro(_volver_a_disponibilidad(reserva.cancha, fecha_texto))
+
+
+@csrf_exempt  # Solo GET y HEAD: no escribe nada. Así require_safe responde 405 también a un POST sin token.
+@require_safe
+@login_required  # Sin sesión: 302 al acceso con ?next= y sin mostrar reservas (AC26)
+def mis_reservas(request):
+    return render(request, "reservas/mis_reservas.html", {"reservas": servicios.reservas_de_usuario(request.user)})
