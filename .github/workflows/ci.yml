@@ -1,0 +1,31 @@
+name: Django CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Instalar dependencias
+        run: python -m pip install -r requirements.txt
+      - name: Verificar configuración y migraciones
+        run: |
+          python manage.py check
+          python manage.py makemigrations --check --dry-run
+          python manage.py migrate --noinput
+      - name: Ejecutar pruebas y reportar cobertura
+        run: |
+          python -m coverage run manage.py test
+          python -m coverage report

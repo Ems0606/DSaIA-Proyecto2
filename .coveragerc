@@ -1,0 +1,7 @@
+[run]
+source = src.reservas
+omit =
+    */migrations/*
+
+[report]
+show_missing = True
