@@ -1,6 +1,6 @@
 # Requisitos
 
-Versión 1.0. Cada requisito apunta a una historia de usuario (HU) y a sus criterios de aceptación en `acceptance-criteria.md`.
+Versión 1.1 (agrega R13; el resto no cambia). Cada requisito apunta a una historia de usuario (HU) y a sus criterios de aceptación en `acceptance-criteria.md`.
 
 ## Funcionales
 | ID | HU | Requisito |
@@ -21,6 +21,7 @@ Versión 1.0. Cada requisito apunta a una historia de usuario (HU) y a sus crite
 | R10 | La lógica usa un reloj inyectable y trabaja en UTC. Las pruebas no dependen de la fecha del sistema. |
 | R11 | Todo error es claro para el usuario y no deja datos a medias. |
 | R12 | Hay pruebas automatizadas y la cobertura de la app se mide con coverage.py (meta de 70%, se anota el número real). |
+| R13 | HU-02 | Un usuario puede tener como máximo 2 reservas confirmadas por semana (lunes a domingo, hora de Panamá), según la fecha de la franja. |
 
 ## Historias de usuario
 - **HU-01** Como jugador quiero ver qué franjas de una cancha están libres en una fecha, para reservar sin preguntarle a nadie.
@@ -30,3 +31,5 @@ Versión 1.0. Cada requisito apunta a una historia de usuario (HU) y a sus crite
 - **HU-05** Como jugador quiero ver mis reservas, para saber qué tengo agendado.
 
 Versión 1.0 revisada: fecha 2026-11-15; aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C0)
+
+Versión 1.1: propuesta del 2026-11-15 (cambio de C3, D-019 a D-022), pendiente de la aprobación de Ivan (Dev, reviewer de C3).

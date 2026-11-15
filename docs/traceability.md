@@ -22,3 +22,4 @@ Relación requisito, criterio de aceptación, tarea, prueba y evidencia, separad
 | R10 | BR06, BR07, BR08, BR13 | AC08, AC09, AC12, AC22, AC23 | HU-01, HU-02, HU-04 | pendiente | pendiente |
 | R11 | BR12 | AC18 | todos | pendiente | pendiente |
 | R12 | | (cobertura) | C6 | pendiente | pendiente |
+| R13 | BR15 | AC29, AC30, AC31, AC32, AC33, AC34, AC35 | HU-02 (C3); AC32 con el endpoint de cancelación, en C4 | pendiente | pendiente |
