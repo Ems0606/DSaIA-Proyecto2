@@ -13,7 +13,8 @@ Relación requisito, criterio de aceptación, tarea, prueba y evidencia, separad
 | R04 | BR05, BR08 | AC11 | HU-04 (C4) | pendiente | pendiente |
 | R05 | | AC03 | HU-01 (C1) | pendiente | pendiente |
 | R05 | BR01, BR02, BR06, BR07, BR09 | AC07, AC08, AC09, AC10, AC23 | HU-02 (C2) | pendiente | pendiente |
-| R06 | BR05, BR08, BR14 | AC11, AC12, AC13, AC14, AC27 | HU-04 (C4) | pendiente | pendiente |
+| R06 | BR05, BR08, BR14 | AC11, AC12, AC13, AC14, AC27 (en la disponibilidad) | HU-04 (C4) | pendiente | pendiente |
+| R06 | BR14 | AC27 (en "Mis reservas") | HU-05 (C5) | pendiente | pendiente |
 | R07 | BR03 | AC15, AC26 | HU-05 (C5) | pendiente | pendiente |
 | R08 | BR11 | AC16, AC17, AC24, AC25 | HU-02 (C2) | pendiente | pendiente |
 | R08 | | AC26 | HU-05 (C5) | pendiente | pendiente |
