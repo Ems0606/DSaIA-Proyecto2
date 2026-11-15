@@ -23,7 +23,7 @@ En cada tarea el Dev del ciclo es el responsable, el Product es el Reviewer (rev
 - Domingo 15, noche: C3 y C4.
 - Lunes 16: C5 y C6, repetir pruebas y entregar.
 
-Si falta tiempo, lo primero que se recorta es HU-05 y el pulido de la web. No se recortan las pruebas de doble reserva, el ciclo del cambio de spec ni la trazabilidad.
+Si falta tiempo, lo primero que se recorta es el pulido de la web. HU-05 "Mis reservas" está en el alcance de la v1.0 y no se recorta por defecto: si hiciera falta, Product aprueba primero el cambio y se actualizan la spec, la trazabilidad y este checklist. No se recortan las pruebas de doble reserva, el ciclo del cambio de spec ni la trazabilidad.
 
 ## Estrategia de pruebas
 - Pruebas con el framework de Django (`python manage.py test`) y cobertura con coverage.py. La meta es 70% sobre el código de la app, sin migraciones, y se anota el número real.
@@ -55,11 +55,20 @@ Se introduce a mitad del desarrollo (C3) y se documenta el ciclo completo: cambi
 - Que alguien del equipo no entienda una parte: el profesor elige al azar quién expone, así que los tres tenemos que entender todo.
 - Que las pruebas de solicitudes simultáneas sean frágiles con SQLite.
 
-## Propuestas por confirmar (Product)
-Quedan como supuestos en las specs v1.0 hasta que se aprueben:
-1. Franjas de una hora exacta, de 07:00 a 22:00.
-2. Reservas hasta 14 días adelante.
-3. Cancelar con al menos 2 horas de anticipación.
-4. Cuentas de usuario con inicio de sesión de Django.
-5. Interfaz sin librerías externas de CDN.
-6. Hora límite de la entrega del lunes.
+## Supuestos y decisiones de Product
+
+Confirmados por Emily el 2026-11-15 (D-011):
+1. Horario de 07:00 a 22:00, hora de Panamá, con franjas de una hora y último inicio a las 21:00.
+2. Reservas hasta hoy más 14 días calendario, inclusive.
+3. Cancelación con al menos 2 horas de anticipación.
+
+Decididos tras la revisión de Ivan (D-012 a D-016):
+- Se cancela desde "Mis reservas" y desde la disponibilidad de la cancha, solo en reservas propias confirmadas.
+- La disponibilidad de una fecha pasada o fuera de plazo se muestra, pero con las franjas como no reservables.
+- Cancha inexistente o inactiva en la disponibilidad responde 404, el correo no distingue mayúsculas ni espacios en los extremos y "Mis reservas" muestra primero la más reciente.
+- Cuentas: la opción más simple, el sistema de usuarios de Django tal cual, con el correo como nombre de usuario (D-015).
+- Interfaz: HTML y CSS planos servidos por Django, sin librerías externas ni CDN (D-016).
+- Lo que faltaría para hacer robusto lo anterior queda registrado en `docs/deuda-tecnica.md`.
+
+Sigue por confirmar:
+- Hora límite de la entrega del lunes, en hora de Panamá. La confirma Emily antes del cierre (C6).
