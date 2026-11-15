@@ -25,9 +25,14 @@
 </ul>
 <ul class="franjas">
     {% for franja in franjas %}
-    <li class="franja {% if franja.ocupada %}ocupada{% else %}libre {% if franja.reservable %}reservable{% else %}no-reservable{% endif %}{% endif %}">
+    <li class="franja {% if franja.ocupada %}ocupada{% if franja.propia_id %} propia{% endif %}{% else %}libre {% if franja.reservable %}reservable{% else %}no-reservable{% endif %}{% endif %}">
         <span class="horario">{{ franja.inicio|time:"H:i" }}-{{ franja.fin|time:"H:i" }}</span>
-        <span class="estado">{% if franja.ocupada %}Ocupada{% elif franja.reservable %}Libre · reservable{% else %}Libre · no reservable{% endif %}</span>
+        <span class="estado">{% if franja.propia_id %}Tu reserva{% elif franja.ocupada %}Ocupada{% elif franja.reservable %}Libre · reservable{% else %}Libre · no reservable{% endif %}</span>
+        {% if franja.cancelable %}
+        <form method="post" action="{% url 'cancelar' franja.propia_id %}" class="cancelar">{% csrf_token %}
+            <button type="submit">Cancelar</button>
+        </form>
+        {% endif %}
         {% if franja.reservable %}
         {% if user.is_authenticated %}
         <form method="post" action="{% url 'reservar' cancha.pk %}" class="reservar">{% csrf_token %}
