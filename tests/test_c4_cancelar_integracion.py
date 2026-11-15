@@ -89,3 +89,31 @@ class CancelarCuentaTests(TestCase):
         self.assertEqual(cancelacion.status_code, 303)
         reserva.refresh_from_db()
         self.assertEqual(reserva.estado, "cancelada")
+
+
+class CancelarCanchaDesactivadaTests(TestCase):
+    """Revisión de Iván en #23: cancelar en una cancha ya desactivada debe mostrar la confirmación.
+
+    La redirección a la disponibilidad de una cancha inactiva responde 404, así que el jugador
+    no vería la confirmación. En ese caso se vuelve al catálogo, donde sí se muestra el aviso.
+    """
+
+    def setUp(self):
+        self.cancha = Cancha.objects.create(nombre="Cancha 2", deporte="Fútbol 5", activa=False)
+        self.ana = Usuario.objects.create_user("ana@ejemplo.com", password="clave-segura-1")
+        self.reserva = models.Reserva.objects.create(cancha=self.cancha, usuario=self.ana, inicio=INICIO)
+        self.client.force_login(self.ana)
+
+    def test_ac11_cancelar_en_cancha_desactivada_vuelve_al_catalogo_con_la_confirmacion(self):
+        with mock.patch("src.reservas.reloj.ahora", return_value=AHORA):
+            respuesta = self.client.post(f"/reservas/{self.reserva.pk}/cancelar/")
+
+        self.assertEqual(respuesta.status_code, 303)
+        self.assertEqual(respuesta["Location"], "/canchas/")
+        self.reserva.refresh_from_db()
+        self.assertEqual(self.reserva.estado, "cancelada")
+
+        with mock.patch("src.reservas.reloj.ahora", return_value=AHORA):
+            siguiente = self.client.get(respuesta["Location"])
+        self.assertEqual(siguiente.status_code, 200)
+        self.assertContains(siguiente, "Reserva cancelada")

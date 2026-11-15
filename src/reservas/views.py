@@ -155,4 +155,7 @@ def cancelar(request, reserva_id):
         request,
         f"Reserva cancelada: {reserva.cancha.nombre}, {fecha_texto} a las {hora}. La franja vuelve a estar libre.",
     )
+    if not reserva.cancha.activa:
+        # La disponibilidad de una cancha inactiva responde 404; el aviso se ve en el catálogo.
+        return _ver_otro(reverse("canchas"))
     return _ver_otro(_volver_a_disponibilidad(reserva.cancha, fecha_texto))
