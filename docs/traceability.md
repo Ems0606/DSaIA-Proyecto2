@@ -22,4 +22,4 @@ Relación requisito, criterio de aceptación, tarea, prueba y evidencia, separad
 | R10 | BR06, BR07, BR08, BR13 | AC08, AC09, AC12, AC22, AC23 | HU-01, HU-02, HU-04 | pendiente | pendiente |
 | R11 | BR12 | AC18 | todos | pendiente | pendiente |
 | R12 | | (cobertura) | C6 | pendiente | pendiente |
-| R13 | BR15 | AC29, AC30, AC31, AC32, AC33, AC34, AC35 | HU-02 (C3); AC32 con el endpoint de cancelación, en C4 | `test_c3_limite_semanal` y regresión de AC30 en `test_c2_reservar` | [rojo](evidencia-c3/cupo-rojo.md), [verde](evidencia-c3/cupo-verde.md). Endpoint de AC32 pendiente de C4. |
+| R13 | BR15 | AC29, AC30, AC31, AC32, AC33, AC34, AC35 | HU-02 (C3); AC32 con el endpoint de cancelación, en C4 | `test_c3_limite_semanal`, AC30 en `test_c2_reservar` y AC32 por endpoint en `test_c4_cancelar_integracion` | [rojo](evidencia-c3/cupo-rojo.md), [verde](evidencia-c3/cupo-verde.md) y [AC32 por endpoint](evidencia-c3/ac32-cancelar-cupo.md). |

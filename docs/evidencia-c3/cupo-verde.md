@@ -14,4 +14,4 @@ python scripts/verificar_trazabilidad.py
 - La trazabilidad devolvió `R=13 BR=15 AC=35` y `OK: sin inconsistencias`.
 - AC05 y AC06 siguen pasando. Ante un intento sobre una franja ya ocupada, se conserva `franja_ocupada` con prioridad sobre el cupo (D-022).
 - AC20 de v1.0 se conserva como criterio histórico. La regresión vigente (AC30) conserva tres reservas de una persona el 16, 23 y 30/11, dentro del horizonte de 14 días, en semanas distintas.
-- AC32 pasó con una cancelada preparada en SQLite. La regresión de extremo a extremo usa el endpoint de C4 y queda a cargo de ese ciclo.
+- AC32 pasó con una cancelada preparada en SQLite. La [regresión por el endpoint de C4](ac32-cancelar-cupo.md) se verificó después de traer la cancelación desde main.
