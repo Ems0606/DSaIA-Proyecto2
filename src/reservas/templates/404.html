@@ -1,0 +1,8 @@
+{% extends "reservas/base.html" %}
+
+{% block titulo %}No encontrado{% endblock %}
+
+{% block contenido %}
+<h1>No encontramos esa página</h1>
+<p>La cancha o la página no existen o no están disponibles. <a href="{% url 'canchas' %}">Ver canchas</a></p>
+{% endblock %}
