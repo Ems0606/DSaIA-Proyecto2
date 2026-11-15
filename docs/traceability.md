@@ -15,9 +15,9 @@ Relación requisito, criterio de aceptación, tarea, prueba y evidencia, separad
 | R05 | BR01, BR02, BR06, BR07, BR09 | AC07, AC08, AC09, AC10, AC23 | HU-02 (C2) | `test_c2_reservar`: ac07 a ac10 y ac23 | [evidencia C2](evidencia-c2/pruebas-verde.md) |
 | R06 | BR05, BR08, BR14 | AC11, AC12, AC13, AC14, AC27 (en la disponibilidad) | HU-04 (C4) | pendiente | pendiente |
 | R06 | BR14 | AC27 (en "Mis reservas") | HU-05 (C5) | pendiente | pendiente |
-| R07 | BR03 | AC15, AC26 | HU-05 (C5) | pendiente | pendiente |
+| R07 | BR03 | AC15, AC26 | HU-05 (C5) | `test_c5_mis_reservas`: ac15 y ac26 | [evidencia C5](evidencia-c5/pruebas-verde.md) |
 | R08 | BR11 | AC16, AC17, AC24, AC25 | HU-02 (C2) | `test_c2_cuentas`: ac16, ac24, ac25; `test_c2_reservar`: ac17 | [evidencia C2](evidencia-c2/pruebas-verde.md) |
-| R08 | | AC26 | HU-05 (C5) | pendiente | pendiente |
+| R08 | | AC26 | HU-05 (C5) | `test_c5_mis_reservas`: ac26 | [evidencia C5](evidencia-c5/pruebas-verde.md) |
 | R09 | BR14 | AC19, AC27 | HU-01, HU-02, HU-04, HU-05 | pendiente | pendiente |
 | R10 | BR06, BR07, BR08, BR13 | AC08, AC09, AC12, AC22, AC23 | HU-01, HU-02, HU-04 | pendiente | pendiente |
 | R11 | BR12 | AC18 | todos | pendiente | pendiente |
