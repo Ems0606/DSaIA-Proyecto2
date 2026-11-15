@@ -7,7 +7,7 @@ Relación requisito, criterio de aceptación, tarea, prueba y evidencia, separad
 | Requisito | Reglas | Criterios | HU / ciclo | Prueba | Evidencia |
 |---|---|---|---|---|---|
 | R01 | BR01, BR02, BR09 | AC01, AC21 | HU-01 (C1) | pendiente | pendiente |
-| R02 | BR01, BR02, BR04, BR06, BR07, BR09, BR13 | AC01, AC02, AC03, AC21, AC22 | HU-01 (C1) | pendiente | pendiente |
+| R02 | BR01, BR02, BR04, BR06, BR07, BR09, BR13 | AC01, AC02, AC03, AC21, AC22, AC28 | HU-01 (C1) | pendiente | pendiente |
 | R03 | BR03, BR10 | AC04, AC20 | HU-02 (C2) | pendiente | pendiente |
 | R04 | BR05 | AC05, AC06 | HU-03 (C2) | pendiente | pendiente |
 | R04 | BR05, BR08 | AC11 | HU-04 (C4) | pendiente | pendiente |

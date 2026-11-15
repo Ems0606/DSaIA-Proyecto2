@@ -36,5 +36,8 @@ Convención para que sean verificables y repetibles:
 | AC25 | R08 | Iniciar sesión con una contraseña incorrecta o con un correo que no existe se rechaza con un mensaje que no revela cuál de los dos falló, y no abre sesión. |
 | AC26 | R07, R08 | Entrar a "Mis reservas" sin sesión iniciada lleva al inicio de sesión y no muestra ninguna reserva. |
 | AC27 | R06, R09, BR14 | Cancelar se ofrece solo en las reservas confirmadas propias que todavía cumplen el plazo, tanto en "Mis reservas" como en la disponibilidad de la cancha. No aparece en reservas ajenas, ya canceladas o fuera de plazo. Se entrega en dos pasos (D-017): en C4 se comprueba en la disponibilidad y en C5 en "Mis reservas". |
+| AC28 | R02, BR01, BR13 | Al abrir la disponibilidad de la Cancha 1 sin indicar fecha, con la hora actual en 2026-11-16 10:00 en Panamá, se muestran las franjas del 2026-11-16 con sus estados. Con una fecha vacía o inválida se responde con el error claro de AC03. Un POST a esa consulta responde 405. |
 
 Versión 1.0 revisada: fecha 2026-11-15; aprobador(es) Emily (Product) e Ivan (Dev, reviewer de C0)
+
+Cambios hechos el mismo 2026-11-15, después de esa aprobación y revisados por Rey: AC27 quedó repartido entre C4 y C5 (D-017) y se agregó AC28 para la consulta sin fecha (D-018).
