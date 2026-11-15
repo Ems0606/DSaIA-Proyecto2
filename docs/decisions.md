@@ -8,7 +8,7 @@ Las decisiones humanas, con fecha. No se reescriben; si una queda obsoleta, se a
 | D-002 | 2026-11-14 | Stack igual al del Proyecto 1: Python 3.12, Django 5.2, SQLite, plantillas de Django | Emily |
 | D-003 | 2026-11-14 | Repositorio nuevo, público (`DSaIA-Proyecto2`), código desde cero | Emily |
 | D-004 | 2026-11-14 | Un ciclo es una historia de usuario con sus issues relacionadas; comparten los mismos roles y los roles rotan por ciclo | Emily |
-| D-005 | 2026-11-14 | Cambio de requerimiento simulado a mitad del avance: máximo 2 reservas activas por usuario por semana | Emily |
+| D-005 | 2026-11-14 | Habrá un cambio de requerimiento a mitad del avance (C3). Su contenido se define y se registra cuando llegue ese ciclo | Emily |
 | D-006 | 2026-11-14 | Alcance: núcleo (disponibilidad, reservar, no doble reserva, cancelar) más "Mis reservas"; interfaz web sencilla | Emily |
 | D-007 | 2026-11-14 | Cobertura mínima propuesta de 70% con coverage.py, y se anota el número real | Emily |
 | D-008 | 2026-11-14 | Fecha de entrega: lunes 16 de noviembre de 2026 | Dato dado por Emily |
