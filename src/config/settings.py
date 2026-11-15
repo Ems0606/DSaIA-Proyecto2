@@ -58,6 +58,11 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        # Transacciones cortas que toman el bloqueo de escritura al empezar: dos reservas
+        # simultáneas se serializan y no fallan a mitad (specs/architecture.md).
+        "OPTIONS": {"transaction_mode": "IMMEDIATE", "timeout": 5},
+        # Archivo y no memoria compartida: la prueba de concurrencia usa hilos con conexiones propias.
+        "TEST": {"NAME": BASE_DIR / "test_db.sqlite3"},
     }
 }
 
@@ -70,4 +75,5 @@ TIME_ZONE = "America/Panama"
 USE_I18N = True
 USE_TZ = True
 STATIC_URL = "/static/"
+LOGIN_URL = "/cuentas/entrar/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -223,3 +223,38 @@ button {
 .nota {
     font-size: 0.9rem;
 }
+
+.encabezado nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.salir {
+    margin: 0;
+}
+
+.formulario {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 24rem;
+    margin: 1rem 0;
+}
+
+.formulario input {
+    padding: 0.55rem;
+    border: 1px solid var(--borde);
+    border-radius: 0.4rem;
+    background: var(--fondo);
+    color: var(--texto);
+    font: inherit;
+}
+
+.formulario .aviso {
+    margin: 0;
+}
+
+.reservar {
+    margin: 0;
+}

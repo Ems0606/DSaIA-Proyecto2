@@ -28,6 +28,17 @@
     <li class="franja {% if franja.ocupada %}ocupada{% else %}libre {% if franja.reservable %}reservable{% else %}no-reservable{% endif %}{% endif %}">
         <span class="horario">{{ franja.inicio|time:"H:i" }}-{{ franja.fin|time:"H:i" }}</span>
         <span class="estado">{% if franja.ocupada %}Ocupada{% elif franja.reservable %}Libre · reservable{% else %}Libre · no reservable{% endif %}</span>
+        {% if franja.reservable %}
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'reservar' cancha.pk %}" class="reservar">{% csrf_token %}
+            <input type="hidden" name="fecha" value="{{ fecha|date:'Y-m-d' }}">
+            <input type="hidden" name="hora" value="{{ franja.inicio|time:'H:i' }}">
+            <button type="submit">Reservar</button>
+        </form>
+        {% else %}
+        <a class="reservar" href="{% url 'entrar' %}?next={{ request.get_full_path|urlencode }}">Inicia sesión para reservar</a>
+        {% endif %}
+        {% endif %}
     </li>
     {% endfor %}
 </ul>
