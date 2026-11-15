@@ -2,6 +2,8 @@
 
 Solo prompts significativos, con ID. Las respuestas incorrectas de la IA y los cambios que rechazamos se anotan tal cual pasaron. No se reescriben entradas previas; si algo queda obsoleto, se anota aparte.
 
+Desde AI-004 solo se registran prompts de desarrollo, QA y producto o spec. AI-001 a AI-003 (organización inicial, 2026-11-14) se conservan tal como se escribieron.
+
 | ID | Actividad | Herramienta IA | Qué se solicitó | Resultado | Decisión humana |
 |---|---|---|---|---|---|
 | AI-001 | Organizar el proyecto (2026-11-14) | Claude | Resumir el PDF del Proyecto 2, marcar lo ambiguo y proponer historias y reparto entre 3 | Resumen de entregables, 8 puntos ambiguos y una propuesta de 7 ciclos con roles rotativos | Emily eligió cancha deportiva, repo nuevo, el cambio de 2 reservas activas por semana y el alcance núcleo + Mis reservas; definió que un ciclo es una HU y fijó la entrega para el lunes 16 |
