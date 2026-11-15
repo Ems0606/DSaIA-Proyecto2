@@ -1,14 +1,7 @@
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Reservas de canchas deportivas</title>
-</head>
-<body>
-    <main>
-        <h1>Reservas de canchas deportivas</h1>
-        <p>El catálogo y las reservas estarán disponibles en los próximos ciclos.</p>
-    </main>
-</body>
-</html>
+{% extends "reservas/base.html" %}
+
+{% block contenido %}
+<h1>Reservas de canchas deportivas</h1>
+<p>Consulta las franjas libres de cada cancha por fecha. Las reservas se habilitan en las próximas entregas.</p>
+<p><a class="boton" href="{% url 'canchas' %}">Ver canchas</a></p>
+{% endblock %}

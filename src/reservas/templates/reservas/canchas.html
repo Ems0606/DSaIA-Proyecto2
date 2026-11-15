@@ -1,0 +1,19 @@
+{% extends "reservas/base.html" %}
+
+{% block contenido %}
+<h1>Canchas</h1>
+{% if canchas %}
+<ul class="tarjetas">
+    {% for cancha in canchas %}
+    <li>
+        <a class="tarjeta" href="{% url 'disponibilidad' cancha.pk %}">
+            <strong>{{ cancha.nombre }}</strong>
+            <span>{{ cancha.deporte }}</span>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Todavía no hay canchas disponibles.</p>
+{% endif %}
+{% endblock %}

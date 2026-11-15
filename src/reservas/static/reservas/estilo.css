@@ -1,0 +1,225 @@
+:root {
+    --fondo: #f5f7f4;
+    --texto: #1d2420;
+    --texto-suave: #55605a;
+    --acento: #1f6b45;
+    --acento-texto: #ffffff;
+    --borde: #d5ddd8;
+    --libre: #e3f3ea;
+    --no-reservable: #eceeed;
+    --ocupada: #f6d9d6;
+    --error: #8a1f14;
+    --error-fondo: #fbe6e3;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --fondo: #141a17;
+        --texto: #e6ece8;
+        --texto-suave: #a7b3ac;
+        --acento: #5cc68c;
+        --acento-texto: #10231a;
+        --borde: #2e3a34;
+        --libre: #1d3a2b;
+        --no-reservable: #232b27;
+        --ocupada: #3d2422;
+        --error: #ffb4a8;
+        --error-fondo: #3d2422;
+    }
+}
+
+:root[data-theme="dark"] {
+    --fondo: #141a17;
+    --texto: #e6ece8;
+    --texto-suave: #a7b3ac;
+    --acento: #5cc68c;
+    --acento-texto: #10231a;
+    --borde: #2e3a34;
+    --libre: #1d3a2b;
+    --no-reservable: #232b27;
+    --ocupada: #3d2422;
+    --error: #ffb4a8;
+    --error-fondo: #3d2422;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+}
+
+main {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 1rem;
+    overflow-wrap: anywhere;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin: 0.5rem 0;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 1.25rem 0 0.5rem;
+}
+
+a {
+    color: var(--acento);
+}
+
+.encabezado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.encabezado .marca {
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--texto);
+}
+
+.subtitulo,
+.nota {
+    color: var(--texto-suave);
+}
+
+.boton,
+button {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    border: 0;
+    border-radius: 0.4rem;
+    background: var(--acento);
+    color: var(--acento-texto);
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.buscar-fecha {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-end;
+    margin: 1rem 0;
+}
+
+.buscar-fecha label {
+    width: 100%;
+}
+
+.buscar-fecha input {
+    flex: 1 1 10rem;
+    min-width: 0;
+    padding: 0.55rem;
+    border: 1px solid var(--borde);
+    border-radius: 0.4rem;
+    background: var(--fondo);
+    color: var(--texto);
+    font: inherit;
+}
+
+.aviso {
+    padding: 0.75rem 1rem;
+    border-radius: 0.4rem;
+}
+
+.aviso.error {
+    background: var(--error-fondo);
+    color: var(--error);
+}
+
+.tarjetas {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid var(--borde);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: var(--texto);
+}
+
+.tarjeta span {
+    color: var(--texto-suave);
+}
+
+.leyenda {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.muestra {
+    display: inline-block;
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-right: 0.3rem;
+    border-radius: 0.2rem;
+    vertical-align: -0.1rem;
+    border: 1px solid var(--borde);
+}
+
+.muestra.ocupada,
+.franja.ocupada {
+    background: var(--ocupada);
+}
+
+.muestra.reservable,
+.franja.reservable {
+    background: var(--libre);
+}
+
+.muestra.no-reservable,
+.franja.no-reservable {
+    background: var(--no-reservable);
+}
+
+.franjas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+}
+
+.franja {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--borde);
+    border-radius: 0.4rem;
+}
+
+.franja .horario {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.nota {
+    font-size: 0.9rem;
+}

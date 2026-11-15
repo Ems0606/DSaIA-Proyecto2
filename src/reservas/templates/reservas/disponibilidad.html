@@ -1,0 +1,36 @@
+{% extends "reservas/base.html" %}
+
+{% block titulo %}Disponibilidad de {{ cancha.nombre }}{% endblock %}
+
+{% block contenido %}
+<h1>{{ cancha.nombre }}</h1>
+<p class="subtitulo">{{ cancha.deporte }}</p>
+
+<form method="get" class="buscar-fecha">
+    <label for="fecha">Fecha (AAAA-MM-DD)</label>
+    <input id="fecha" name="fecha" type="text" inputmode="numeric" placeholder="2026-11-17" value="{{ fecha_texto }}" required>
+    <button type="submit">Ver franjas</button>
+</form>
+
+{% if error %}
+<p class="aviso error" role="alert">{{ error }}</p>
+{% endif %}
+
+{% if fecha %}
+<h2>{{ fecha|date:"DATE_FORMAT" }}</h2>
+<ul class="leyenda">
+    <li><span class="muestra ocupada"></span>Ocupada</li>
+    <li><span class="muestra reservable"></span>Libre · reservable</li>
+    <li><span class="muestra no-reservable"></span>Libre · no reservable</li>
+</ul>
+<ul class="franjas">
+    {% for franja in franjas %}
+    <li class="franja {% if franja.ocupada %}ocupada{% else %}libre {% if franja.reservable %}reservable{% else %}no-reservable{% endif %}{% endif %}">
+        <span class="horario">{{ franja.inicio|time:"H:i" }}-{{ franja.fin|time:"H:i" }}</span>
+        <span class="estado">{% if franja.ocupada %}Ocupada{% elif franja.reservable %}Libre · reservable{% else %}Libre · no reservable{% endif %}</span>
+    </li>
+    {% endfor %}
+</ul>
+<p class="nota">Una franja es reservable si todavía no empezó y la fecha está dentro de los 14 días calendario siguientes a hoy (hora de Panamá).</p>
+{% endif %}
+{% endblock %}
