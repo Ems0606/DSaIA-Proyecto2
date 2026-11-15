@@ -1,4 +1,4 @@
-"""Pruebas HTTP de reservar (AC04, AC05, AC07, AC08, AC09, AC10, AC17, AC18, AC20, AC23).
+"""Pruebas HTTP de reservar (AC04, AC05, AC07, AC08, AC09, AC10, AC17, AC18, AC23 y AC30).
 
 Reloj fijo: 2026-11-16 10:00 en Panamá (15:00 UTC). La hora actual se parchea en
 `src.reservas.reloj.ahora`. Usuarios Ana y Luis; la cancha es "Cancha 1".
@@ -128,8 +128,9 @@ class ReservarTests(ReservarBase):
         self.assertEqual(respuesta.status_code, 404)
         self.assertEqual(self.total(), 0)
 
-    def test_ac20_ana_puede_tener_tres_reservas_confirmadas_a_la_vez(self):
-        for fecha, hora in (("2026-11-17", "18:00"), ("2026-11-18", "18:00"), ("2026-11-19", "09:00")):
+    def test_r13_ac30_ana_puede_tener_tres_reservas_en_semanas_distintas(self):
+        # AC20 de v1.0 pasa a AC30 en v1.1. Las tres fechas caben en el horizonte de 14 días.
+        for fecha, hora in (("2026-11-16", "18:00"), ("2026-11-23", "18:00"), ("2026-11-30", "18:00")):
             self.assertEqual(self.reservar(fecha, hora).status_code, 303)
         self.assertEqual(models.Reserva.objects.filter(usuario=self.ana, estado="confirmada").count(), 3)
 

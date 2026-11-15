@@ -115,6 +115,12 @@ def reservar(request, cancha_id):
         return _rechazo(request, cancha, texto_fecha, "Esa cancha no está disponible para reservar.", 409)
     except servicios.FranjaOcupada:
         return _rechazo(request, cancha, texto_fecha, "Esa franja ya está ocupada. Elige otra. (franja_ocupada)", 409)
+    except servicios.LimiteSemanal:
+        return _rechazo(
+            request, cancha, texto_fecha,
+            "Alcanzaste el límite de dos reservas confirmadas para esa semana. Elige otra semana. (limite_semanal)",
+            409,
+        )
     except OperationalError:
         return _rechazo(request, cancha, texto_fecha, "El sistema está ocupado. Intenta de nuevo en unos segundos.", 503)
     messages.success(request, f"Reserva confirmada: {cancha.nombre}, {texto_fecha} a las {texto_hora}.")
