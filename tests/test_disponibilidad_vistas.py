@@ -58,23 +58,23 @@ class DisponibilidadVistaTests(TestCase):
         respuesta = self.consultar({"fecha": "17/11/2026"})
 
         self.assertEqual(respuesta.status_code, 400)
-        self.assertContains(respuesta, "AAAA-MM-DD")
+        self.assertContains(respuesta, "AAAA-MM-DD", status_code=400)
         self.assertFalse(respuesta.context.get("franjas"))
-        self.assertNotContains(respuesta, "07:00-08:00")
+        self.assertNotContains(respuesta, "07:00-08:00", status_code=400)
 
     def test_ac03_fecha_imposible_responde_error_sin_franjas(self):
         respuesta = self.consultar({"fecha": "2026-02-30"})
 
         self.assertEqual(respuesta.status_code, 400)
-        self.assertContains(respuesta, "AAAA-MM-DD")
+        self.assertContains(respuesta, "AAAA-MM-DD", status_code=400)
         self.assertFalse(respuesta.context.get("franjas"))
-        self.assertNotContains(respuesta, "07:00-08:00")
+        self.assertNotContains(respuesta, "07:00-08:00", status_code=400)
 
     def test_ac03_sin_parametro_fecha_responde_error_sin_franjas(self):
         respuesta = self.consultar({})
 
         self.assertEqual(respuesta.status_code, 400)
-        self.assertContains(respuesta, "AAAA-MM-DD")
+        self.assertContains(respuesta, "AAAA-MM-DD", status_code=400)
         self.assertFalse(respuesta.context.get("franjas"))
 
     def test_ac21_cancha_inexistente_responde_404_sin_franjas(self):
