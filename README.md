@@ -6,7 +6,7 @@ Proyecto 2 de Tópicos Especiales II (UTP, Prof. Regis Rivera). Es un sistema de
 
 ## Estado
 
-C0: base de Django disponible. Las [especificaciones v1.0](specs/requirements.md) están en revisión. El catálogo, la autenticación y las reservas se desarrollan en los siguientes ciclos. Los acuerdos sobre cuentas e interfaz y las mejoras diferidas están en [decisiones](docs/decisions.md) y [deuda técnica](docs/deuda-tecnica.md).
+C0: base de Django disponible. Las [especificaciones v1.0](specs/requirements.md) están en revisión. El catálogo, la autenticación y las reservas se desarrollan en los siguientes ciclos. Los acuerdos sobre cuentas e interfaz están en [decisiones](docs/decisions.md).
 
 ## Estructura
 - `specs/`: outcomes, requisitos, reglas de negocio, arquitectura, modelo de datos, API, criterios de aceptación y plan de implementación
