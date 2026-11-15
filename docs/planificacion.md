@@ -68,7 +68,6 @@ Decididos tras la revisión de Ivan (D-012 a D-016):
 - Cancha inexistente o inactiva en la disponibilidad responde 404, el correo no distingue mayúsculas ni espacios en los extremos y "Mis reservas" muestra primero la más reciente.
 - Cuentas: la opción más simple, el sistema de usuarios de Django tal cual, con el correo como nombre de usuario (D-015).
 - Interfaz: HTML y CSS planos servidos por Django, sin librerías externas ni CDN (D-016).
-- Lo que faltaría para hacer robusto lo anterior queda registrado en `docs/deuda-tecnica.md`.
 
 Sigue por confirmar:
 - Hora límite de la entrega del lunes, en hora de Panamá. La confirma Emily antes del cierre (C6).
