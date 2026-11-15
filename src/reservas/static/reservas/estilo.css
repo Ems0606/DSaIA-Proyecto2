@@ -255,7 +255,8 @@ button {
     margin: 0;
 }
 
-.reservar {
+.reservar,
+.cancelar {
     margin: 0;
 }
 
