@@ -91,6 +91,45 @@ class CancelarCuentaTests(TestCase):
         self.assertEqual(reserva.estado, "cancelada")
 
 
+class CancelarRegresionAC32Tests(TestCase):
+    """AC32 (parte que se comprueba en C4): cancelar por el endpoint con un clic libera la franja.
+
+    La reserva cancelada deja de ocupar la franja también para quien la canceló: Ana vuelve a
+    reservar el mismo horario y queda una sola confirmada. El límite semanal (R13, BR15) es de C3,
+    que aún no está en esta rama; el cupo de dos confirmadas y el rechazo de la tercera quedan
+    para después de que #24 se una a main.
+    """
+
+    def setUp(self):
+        self.cancha = Cancha.objects.create(nombre="Cancha 1", deporte="Fútbol 5", activa=True)
+        self.ana = Usuario.objects.create_user("ana@ejemplo.com", password="clave-segura-1")
+        self.client.force_login(self.ana)
+        self.url_reservar = f"/canchas/{self.cancha.pk}/reservas/"
+
+    def test_ac32_tras_cancelar_por_el_endpoint_ana_vuelve_a_reservar_la_misma_franja(self):
+        with mock.patch("src.reservas.reloj.ahora", return_value=AHORA):
+            alta = self.client.post(self.url_reservar, {"fecha": "2026-11-17", "hora": "18:00"})
+        self.assertEqual(alta.status_code, 303)
+        primera = models.Reserva.objects.get(usuario=self.ana, estado="confirmada")
+
+        with mock.patch("src.reservas.reloj.ahora", return_value=AHORA):
+            cancelacion = self.client.post(f"/reservas/{primera.pk}/cancelar/")
+        self.assertEqual(cancelacion.status_code, 303)
+
+        with mock.patch("src.reservas.reloj.ahora", return_value=AHORA):
+            nueva = self.client.post(self.url_reservar, {"fecha": "2026-11-17", "hora": "18:00"})
+        self.assertEqual(nueva.status_code, 303)
+
+        primera.refresh_from_db()
+        self.assertEqual(primera.estado, "cancelada")
+        confirmadas = models.Reserva.objects.filter(
+            cancha=self.cancha, usuario=self.ana, inicio=INICIO, estado="confirmada"
+        )
+        self.assertEqual(confirmadas.count(), 1)
+        self.assertNotEqual(confirmadas.get().pk, primera.pk)
+        self.assertEqual(models.Reserva.objects.filter(usuario=self.ana).count(), 2)
+
+
 class CancelarCanchaDesactivadaTests(TestCase):
     """Revisión de Iván en #23: cancelar en una cancha ya desactivada debe mostrar la confirmación.
 
