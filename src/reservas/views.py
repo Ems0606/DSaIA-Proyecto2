@@ -117,7 +117,7 @@ def reservar(request, cancha_id):
     except servicios.LimiteSemanal:
         return _rechazo(
             request, cancha, texto_fecha,
-            "Ya tienes dos reservas confirmadas para esa semana. Elige otra semana. (limite_semanal)",
+            "Alcanzaste el límite de dos reservas confirmadas para esa semana. Elige otra semana. (limite_semanal)",
             409,
         )
     except OperationalError:
