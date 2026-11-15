@@ -2,7 +2,7 @@
 <!-- Qué problema resuelve este PR y qué queda funcionando al terminar -->
 
 ## Issue y criterios de aceptación
-Cierra #
+Closes #
 - [ ] AC.. :
 
 ## Responsables

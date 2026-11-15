@@ -6,13 +6,13 @@ Versión 1.0 (borrador). Cada requisito apunta a una historia de usuario (HU) y 
 | ID | HU | Requisito |
 |---|---|---|
 | R01 | HU-01 | El sistema mantiene un catálogo de canchas (nombre, deporte, activa) con datos de ejemplo. |
-| R02 | HU-01 | Dada una cancha y una fecha, el sistema muestra las franjas de una hora entre las 07:00 y las 22:00, cada una como libre u ocupada. |
+| R02 | HU-01 | Dada una cancha activa y una fecha válida, el sistema muestra las franjas de una hora entre las 07:00 y las 22:00 (hora de Panamá), cada una como libre u ocupada. Las franjas libres que ya no se pueden reservar se marcan como no reservables. |
 | R03 | HU-02 | Un usuario con sesión iniciada reserva una cancha en una fecha y una hora de inicio. Se crea una reserva confirmada con sus datos. |
 | R04 | HU-03 | Una cancha no puede tener dos reservas confirmadas en la misma franja, tampoco cuando dos solicitudes llegan a la vez. |
-| R05 | HU-02 | Se validan la cancha (existe y está activa), la fecha (formato AAAA-MM-DD y válida), la hora (en punto y dentro del horario), que la franja sea futura y que no pase de 14 días de anticipación. |
-| R06 | HU-04 | Quien hizo una reserva confirmada puede cancelarla con al menos 2 horas de anticipación. La reserva pasa a cancelada y la franja queda libre. |
-| R07 | HU-05 | Un usuario ve sus propias reservas, pasadas y futuras, con su estado. |
-| R08 | HU-02 | Un usuario se registra con nombre, correo y contraseña, e inicia sesión. Se validan los datos. Sin sesión no se puede reservar ni cancelar. |
+| R05 | HU-02 | Se validan la cancha (existe y está activa), la fecha (formato AAAA-MM-DD y válida), la hora (en punto y dentro del horario), que la franja sea futura y que no pase de 14 días calendario de anticipación, contados en hora de Panamá. |
+| R06 | HU-04 | Quien hizo una reserva confirmada puede cancelarla con al menos 2 horas de anticipación. La reserva pasa a cancelada y la franja queda libre. Se ofrece desde "Mis reservas" y desde la disponibilidad de la cancha. |
+| R07 | HU-05 | Un usuario con sesión iniciada ve sus propias reservas, pasadas y futuras, con su estado y la más reciente primero. |
+| R08 | HU-02 | Un usuario se registra con nombre, correo y contraseña, e inicia sesión. Se validan los datos y se rechazan las credenciales inválidas. Sin sesión no se puede reservar, cancelar ni ver "Mis reservas". |
 | R09 | HU-01, HU-02, HU-04, HU-05 | Una interfaz web sencilla permite ver disponibilidad, reservar, cancelar y ver mis reservas, sin depender de Internet. |
 
 ## No funcionales
