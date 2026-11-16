@@ -6,20 +6,22 @@ Relación requisito, criterio de aceptación, tarea, prueba y evidencia, separad
 
 | Requisito | Reglas | Criterios | HU / ciclo | Prueba | Evidencia |
 |---|---|---|---|---|---|
-| R01 | BR01, BR02, BR09 | AC01, AC21 | HU-01 (C1) | pendiente | pendiente |
-| R02 | BR01, BR02, BR04, BR06, BR07, BR09, BR13 | AC01, AC02, AC03, AC21, AC22, AC28 | HU-01 (C1) | pendiente | pendiente |
+| R01 | BR01, BR02, BR09 | AC01, AC21 | HU-01 (C1) | `test_disponibilidad_vistas`: catálogo, carga de ejemplo, AC01 y AC21 | [rojo y verde de C1](evidencia-c1/disponibilidad-verde.md) y [QA de C1](evidencia-c1/ac19-disponibilidad-local.md) |
+| R02 | BR01, BR02, BR04, BR06, BR07, BR09, BR13 | AC01, AC02, AC03, AC21, AC22, AC28 | HU-01 (C1) | `test_disponibilidad_dominio` y `test_disponibilidad_vistas`: AC01–AC03, AC21, AC22 y AC28. AC02 con persistencia en `test_c2_reservar` (AC04) | [rojo y verde de C1](evidencia-c1/disponibilidad-verde.md), [ajuste de AC28](evidencia-c1/ajustes-ivan-rojo-verde.md) y [QA de C2](evidencia-c2/qa-navegador.md) |
 | R03 | BR03, BR10 | AC04, AC20 | HU-02 (C2) | `test_c2_reservar`: ac04. AC20 histórico, sustituido por AC29 y AC30 en C3. | [evidencia C2](evidencia-c2/pruebas-verde.md) |
 | R04 | BR05 | AC05, AC06 | HU-03 (C2) | `test_c2_reservar`: ac05; `test_c2_concurrencia`: ac06 | [evidencia C2](evidencia-c2/pruebas-verde.md) |
 | R04 | BR05, BR08 | AC11 | HU-04 (C4) | `test_c4_cancelar`: ac11 | [evidencia C4](evidencia-c4/cancelar-verde.md) |
-| R05 | | AC03 | HU-01 (C1) | pendiente | pendiente |
+| R05 | | AC03 | HU-01 (C1) | `test_disponibilidad_vistas`: fechas mal formadas, imposibles y vacías (AC03) | [rojo y verde de C1](evidencia-c1/disponibilidad-verde.md) y [ajuste de AC28](evidencia-c1/ajustes-ivan-rojo-verde.md) |
 | R05 | BR01, BR02, BR06, BR07, BR09 | AC07, AC08, AC09, AC10, AC23 | HU-02 (C2) | `test_c2_reservar`: ac07 a ac10 y ac23 | [evidencia C2](evidencia-c2/pruebas-verde.md) |
 | R06 | BR05, BR08, BR14 | AC11, AC12, AC13, AC14, AC27 (en la disponibilidad) | HU-04 (C4) | `test_c4_cancelar`: ac11 a ac14 y ac27 en la disponibilidad | [evidencia C4](evidencia-c4/cancelar-verde.md) |
 | R06 | BR14 | AC27 (en "Mis reservas") | HU-05 (C5) | `test_c5_cancelar_desde_mis_reservas`: ac27 | [rojo](evidencia-c5/cancelar-rojo.md), [verde](evidencia-c5/cancelar-verde.md) |
 | R07 | BR03 | AC15, AC26 | HU-05 (C5) | `test_c5_mis_reservas`: ac15 y ac26 | [evidencia C5](evidencia-c5/pruebas-verde.md) |
 | R08 | BR11 | AC16, AC17, AC24, AC25 | HU-02 (C2) | `test_c2_cuentas`: ac16, ac24, ac25; `test_c2_reservar`: ac17 | [evidencia C2](evidencia-c2/pruebas-verde.md) |
 | R08 | | AC26 | HU-05 (C5) | `test_c5_mis_reservas`: ac26 | [evidencia C5](evidencia-c5/pruebas-verde.md) |
-| R09 | BR14 | AC19, AC27 | HU-01, HU-02, HU-04, HU-05 | pendiente | pendiente |
-| R10 | BR06, BR07, BR08, BR13 | AC08, AC09, AC12, AC22, AC23 | HU-01, HU-02, HU-04 | pendiente | pendiente |
-| R11 | BR12 | AC18 | todos | pendiente | pendiente |
-| R12 | | (cobertura) | C6 | pendiente | pendiente |
+| R09 | BR14 | AC19, AC27 | HU-01, HU-02, HU-04, HU-05 | AC19 en Chrome con acceso solo a localhost. AC27 en `test_c4_cancelar` y `test_c5_cancelar_desde_mis_reservas` | [QA final](evidencia-c6/navegador.md), [C4](evidencia-c4/cancelar-verde.md) y [QA de C5](evidencia-c5/qa-navegador-parte-2.md) |
+| R10 | BR06, BR07, BR08, BR13 | AC08, AC09, AC12, AC22, AC23 | HU-01, HU-02, HU-04 | `test_disponibilidad_dominio` y `test_disponibilidad_vistas` (AC22 y frontera de AC23), `test_c2_reservar` (AC08, AC09, AC23), `test_c4_cancelar` (AC12) | [rojo y verde de C1](evidencia-c1/disponibilidad-verde.md), [QA de C2](evidencia-c2/qa-navegador.md) y [C4](evidencia-c4/cancelar-verde.md) |
+| R11 | BR12 | AC18 | todos | `test_c2_reservar` y `test_c4_cancelar` (AC18), y consulta de historial en `test_c5_mis_reservas` | [QA de C2](evidencia-c2/qa-navegador.md), [C4](evidencia-c4/cancelar-verde.md) y [suite de C6](evidencia-c6/suite.md) |
+| R12 | | (cobertura) | C6 | `coverage report --fail-under=70` pasó con 97 % y 112 pruebas en verde | [suite de C6](evidencia-c6/suite.md) |
 | R13 | BR15 | AC29, AC30, AC31, AC32, AC33, AC34, AC35 | HU-02 (C3); AC32 con el endpoint de cancelación, en C4 | `test_c3_limite_semanal`, AC30 en `test_c2_reservar` y AC32 por endpoint en `test_c4_cancelar_integracion` | [rojo](evidencia-c3/cupo-rojo.md), [verde](evidencia-c3/cupo-verde.md) y [AC32 por endpoint](evidencia-c3/ac32-cancelar-cupo.md). |
+
+AC20 queda como evidencia histórica de la v1.0. AC29 y AC30 sustituyen ese criterio en la v1.1. El [caso final de navegador](evidencia-c6/navegador.md) integra disponibilidad, reserva, cancelación e historial con el límite semanal activo.
