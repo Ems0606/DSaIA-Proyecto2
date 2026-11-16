@@ -11,6 +11,11 @@
         <span class="cancha">{{ reserva.cancha.nombre }}</span>
         <span class="cuando">{{ reserva.inicio|date:"DATE_FORMAT" }}, {{ reserva.inicio|time:"H:i" }}</span>
         <span class="estado">{% if reserva.estado == 'cancelada' %}Cancelada{% else %}Confirmada{% endif %}</span>
+        {% if reserva.cancelable %}
+        <form method="post" action="{% url 'cancelar' reserva.pk %}" class="cancelar">{% csrf_token %}
+            <button type="submit">Cancelar</button>
+        </form>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

@@ -172,4 +172,4 @@ def cancelar(request, reserva_id):
 @require_safe
 @login_required  # Sin sesión: 302 al acceso con ?next= y sin mostrar reservas (AC26)
 def mis_reservas(request):
-    return render(request, "reservas/mis_reservas.html", {"reservas": servicios.reservas_de_usuario(request.user)})
+    return render(request, "reservas/mis_reservas.html", {"reservas": servicios.reservas_de_usuario(request.user, reloj.ahora())})

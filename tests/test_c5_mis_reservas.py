@@ -1,6 +1,6 @@
 """Pruebas HTTP de "Mis reservas" (AC15, AC18, AC19, AC26). HU-05, R07 y R08.
 
-El botón de cancelar en esta pantalla (AC27) se agrega cuando el endpoint de C4 esté en main (D-017).
+El botón de cancelar en esta pantalla (AC27) se prueba en `test_c5_cancelar_desde_mis_reservas.py` (D-017).
 Usuarios Ana y Luis; canchas "Cancha 1" y "Cancha 2". Las reservas se preparan directo en la base de datos
 para poder tener pasadas, futuras y canceladas sin depender del reloj ni de otros endpoints.
 """
