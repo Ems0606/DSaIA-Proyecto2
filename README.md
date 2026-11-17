@@ -1,40 +1,49 @@
 # DSaIA-Proyecto2: reservas de canchas deportivas
 
-Proyecto 2 de Tópicos Especiales II (UTP, Prof. Regis Rivera). Es un sistema de reservas de canchas deportivas hecho con ODD (primero el resultado que queremos para el usuario) y SDD (después las especificaciones, el código y las pruebas).
+Proyecto 2 de Tópicos Especiales II de la UTP con el profesor Regis Rivera. El sistema permite consultar franjas por cancha y fecha, crear una cuenta, iniciar sesión, reservar, cancelar y consultar «Mis reservas». El equipo usó ODD para definir el resultado para el jugador y SDD para convertirlo en especificaciones y pruebas.
 
 **Equipo:** Emily (Ems0606), Ivan y Rey.
 
-## Estado
+## Reglas de la versión 1.1
 
-C0: base de Django disponible. Las [especificaciones v1.0](specs/requirements.md) están en revisión. El catálogo, la autenticación y las reservas se desarrollan en los siguientes ciclos. Los acuerdos sobre cuentas e interfaz están en [decisiones](docs/decisions.md).
+- Quince franjas de una hora, de 07:00 a 22:00 en Panamá. Se pueden reservar franjas futuras hasta 14 días calendario desde hoy, inclusive.
+- Una cancha admite una sola reserva confirmada por franja. Cada cuenta admite dos confirmadas por semana de la franja, de lunes a domingo en Panamá. Las que ya empezaron cuentan y las canceladas liberan cupo.
+- El dueño puede cancelar con al menos dos horas de anticipación. El historial conserva las reservas canceladas.
+- Django sirve el HTML y CSS localmente. Después de instalar las dependencias, la demo funciona sin acceso a Internet.
 
-## Estructura
-- `specs/`: outcomes, requisitos, reglas de negocio, arquitectura, modelo de datos, API, criterios de aceptación y plan de implementación
-- `docs/`: registro de uso de IA (`ai-log.md`), decisiones (`decisions.md`) y pruebas (`testing.md`)
-- `src/config/`: configuración Django; `src/reservas/`: aplicación web
-- `tests/`: pruebas automatizadas
+## Inicio local
 
-## Cómo correrlo
-
-Requiere Python 3.12. Desde la raíz del repositorio:
+Se necesita Python 3.12. Ejecuta desde la raíz del repositorio:
 
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 python manage.py migrate
+python manage.py cargar_demo_canchas
 python manage.py runserver
 ```
 
-En Windows, usar `py -3.12 -m venv .venv` y activar con `.venv\Scripts\Activate.ps1` en PowerShell. Abrir [http://127.0.0.1:8000/](http://127.0.0.1:8000/) para ver la portada. SQLite crea `db.sqlite3` localmente; no se sube al repo. La portada no usa recursos externos.
+En PowerShell, crea el entorno con `py -3.12 -m venv .venv` y actívalo con `.\.venv\Scripts\Activate.ps1`. Los comandos siguientes son los mismos.
+
+Abre [http://127.0.0.1:8000/](http://127.0.0.1:8000/). La carga crea «Cancha 1» y se puede repetir sin duplicarla. SQLite guarda la base local en `db.sqlite3`. Usa cuentas ficticias para la demo. El [guion de demostración](docs/presentacion/demo.md) explica cómo mostrar el límite, la cancelación y la recuperación del cupo.
+
+## Pruebas
 
 ```bash
-python manage.py test
-python -m coverage run manage.py test
-python -m coverage report
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python -m coverage run manage.py test --noinput
+python -m coverage report --fail-under=70
+python scripts/verificar_trazabilidad.py
 ```
 
-[Resultados y alcance de la cobertura](docs/testing.md).
+En C6 pasaron **112 pruebas**. La cobertura de líneas fue **97 %** en `src/reservas` sin migraciones (325 de 334 líneas), frente a una meta del 70 %. Consulta el [resultado final](docs/testing.md#c6-cierre), la [trazabilidad](docs/traceability.md) y la [prueba de navegador sin Internet](docs/evidencia-c6/navegador.md).
 
-## Cómo trabajamos
-Issue o historia de usuario, rama, commits pequeños, PR con la plantilla del repo, revisión de otra persona, QA y merge. Nadie aprueba su propio PR.
+## Documentación y entrega
+
+- [Outcomes](specs/outcomes.md), [requisitos](specs/requirements.md), [reglas de negocio](specs/business-rules.md) y [criterios](specs/acceptance-criteria.md).
+- [Arquitectura](specs/architecture.md), [modelo de datos](specs/data-model.md), [contrato HTTP](specs/api.md) y [plan por ciclos](specs/implementation-plan.md).
+- [Decisiones](docs/decisions.md), [registro de IA](docs/ai-log.md) y [presentación de cierre](docs/presentacion/Proyecto-2-Reservas-de-canchas.pptx).
+
+`src/config/` contiene la configuración de Django, `src/reservas/` la aplicación y `tests/` la suite automatizada. Cada cambio pasa por un issue, una rama y un PR con revisión, QA y evidencia. Nadie aprueba su propio PR.

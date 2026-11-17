@@ -38,17 +38,19 @@ Si falta tiempo, lo primero que se recorta es el pulido de la web. HU-05 "Mis re
 Se introduce a mitad del desarrollo (C3) y se documenta el ciclo completo: cambio pedido, spec con versión nueva, criterios, plan y tareas, pruebas en rojo, código, pruebas en verde y revisión de regresiones. La evidencia queda en `docs/` y en el historial de Git.
 
 ## Checklist de entrega
-- [ ] Repositorio Git con estructura de referencia
-- [ ] Issues y ramas por tarea
-- [ ] Commits identificables
-- [ ] Pull requests revisados por otra persona
-- [ ] Pruebas automatizadas, con la prueba de no doble reserva
-- [ ] Specs v1.0 y v1.1 con control de aprobación
-- [ ] `docs/ai-log.md` con respuestas incorrectas y cambios rechazados, con evidencia
-- [ ] `docs/decisions.md` y `docs/testing.md` al día
-- [ ] README con comandos reales
-- [ ] Stack declarado en `specs/architecture.md`
-- [ ] Material de la presentación
+
+- [x] Repositorio Git con estructura de referencia
+- [x] Issues y ramas por tarea
+- [x] Commits identificables
+- [x] Pull requests de C0 a C5 revisados por otra persona
+- [x] Pruebas automatizadas, incluida la doble reserva y el último cupo concurrente
+- [x] Specs v1.0 y v1.1 con control de aprobación
+- [x] Registro de IA con errores y correcciones enlazados
+- [x] Decisiones, pruebas y trazabilidad al día
+- [x] README con comandos reales
+- [x] Stack declarado en `specs/architecture.md`
+- [x] [Presentación y guion de demostración](presentacion/demo.md)
+- [ ] Revisión de Emily y QA de Rey para C6
 
 ## Riesgos
 - Poco tiempo para siete ciclos desde cero.
